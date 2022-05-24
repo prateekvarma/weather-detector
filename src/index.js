@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 
 class App extends React.Component {
   //below, we've initialized a state without using a constructor
-  state = { lat: null };
+  state = { lat: null, errorMessage: "" };
 
   render() {
     //below we're using the browser's API and extracting info from it
@@ -13,9 +13,16 @@ class App extends React.Component {
       (position) => {
         this.setState({ lat: position.coords.latitude });
       },
-      (err) => console.log(err)
+      (err) => {
+        this.setState({ errorMessage: err.message });
+      }
     );
-    return <div>Latitute: {this.state.lat}</div>;
+    return (
+    <div>
+      Latitute: {this.state.lat} <br />
+      Error: {this.state.errorMessage}
+    </div>
+    );
   }
 }
 
