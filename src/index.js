@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+class App extends React.Component {
+  //below, we've initialized a state without using a constructor
+  state = { lat: null };
+
+  render() {
+    //below we're using the browser's API and extracting info from it
+    // more info : https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
+    //The getCurrentPosition() function takes 2 callback arguments, first is for success & 2nd is for errors
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({ lat: position.coords.latitude });
+      },
+      (err) => console.log(err)
+    );
+    return <div>Latitute: {this.state.lat}</div>;
+  }
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
