@@ -10,12 +10,19 @@ const getSeason = (lat, month) => {
     //below if lat > 0 we are in the NORTHERN hemisphere
     return lat > 0 ? "winter" : "summer";
   }
-}; 
+};
 
 const SeasonDisplay = (props) => {
   const season = getSeason(props.lat, new Date().getMonth());
-  console.log(season);
-  return <div>Season Display</div>;
+  const icon = season === "winter" ? "snowflake" : "sun";
+
+  return (
+    <div>
+      <i className={`massive ${icon} icon`}></i>
+      <h1>Current season for your location is : {season}</h1>
+      <i className={`massive ${icon} icon`}></i>
+    </div>
+  );
 };
 
 export default SeasonDisplay;
